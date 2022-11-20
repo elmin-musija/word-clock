@@ -2,6 +2,7 @@ const outputGrid = document.querySelector(`.grid`);
 let outputGridElement = 0;
 let initialTimeIsSet = false;
 let currentTime = [{ hours: 0, minutes: 0, seconds: 0 }];
+
 const fieldArray = `ESPISTXFÜNFZWANZIGZEHNDREIVIERTELQVORSNACHTKHALBIFÜNFELUZWEIBEINSLDREIAWEVIERSECHSKUACHTZWÖLFSIEBENZEHNEUNCUHR`;
 const timeObjectHours = [
 	{
@@ -118,14 +119,14 @@ const getCurrentTime = () => {
 	currentTime.minutes = tmp.getMinutes();
 	currentTime.seconds = tmp.getSeconds();
 };
-const returnTimeStringMinutes = () => {
+const getTimeStringMinutes = () => {
 	for (let element of timeObjectMinutes) {
 		if (element.timeInt === currentTime.minutes) {
 			return element.timeString;
 		}
 	}
 };
-const returnTimeStringHours = (paramOffset = 0) => {
+const getTimeStringHours = (paramOffset = 0) => {
 	for (let element of timeObjectHours) {
 		if (element.timeInt === currentTime.hours + paramOffset) {
 			return element.timeString;
@@ -144,6 +145,21 @@ const setInitialTime = () => {
 		initialTimeIsSet = true;
 	}
 };
+const getOutputArrayHoursMinutes = (paramOffset = 0) => {
+	let tmpString = ``;
+	tmpString += `ES IST `;
+	tmpString += getTimeStringMinutes();
+	tmpString += ` `;
+	tmpString += getTimeStringHours(paramOffset);
+	return [...tmpString.split(` `)];
+};
+const getOutputArrayFullHours = (paramOffset = 0) => {
+	let tmpString = ``;
+	tmpString += `ES IST `;
+	tmpString += getTimeStringHours(paramOffset);
+	tmpString += ` UHR`;
+	return [...tmpString.replace(`EINS`, `EIN`).split(` `)];
+};
 
 const checkTime = () => {
 	let outputTimeArray = [];
@@ -151,18 +167,12 @@ const checkTime = () => {
 	setInitialTime();
 	if (currentTime.seconds === 0) {
 		if (currentTime.minutes === 0) {
-			outputTimeArray = `ES IST ${returnTimeStringHours()} UHR`.split(` `);
+			outputTimeArray = getOutputArrayFullHours();
 		} else if (currentTime.minutes % 5 === 0) {
 			if (currentTime.minutes < 30) {
-				outputTimeArray =
-					`ES IST ${returnTimeStringMinutes()} ${returnTimeStringHours()}`.split(
-						` `
-					);
+				outputTimeArray = getOutputArrayHoursMinutes(0);
 			} else {
-				outputTimeArray =
-					`ES IST ${returnTimeStringMinutes()} ${returnTimeStringHours(
-						1
-					)}`.split(` `);
+				outputTimeArray = getOutputArrayHoursMinutes(1);
 			}
 		}
 		if (outputTimeArray.length > 0) {
