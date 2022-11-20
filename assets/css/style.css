@@ -1,0 +1,38 @@
+@font-face {
+	font-family: Roboto;
+	src: url(../font/Roboto/Roboto-Regular.ttf);
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body {
+	background-color: black;
+}
+.clock {
+	font-family: Roboto, Arial, Helvetica, sans-serif;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.grid {
+	display: grid;
+	grid-template-columns: repeat(11, 1fr);
+	margin: 0 auto;
+}
+.grid > p {
+	color: rgba(53, 79, 82, 0.3);
+	font-size: min(4vw, 4vh);
+	width: min(calc(100vw / 12), calc(100vh / 11));
+	height: min(calc(100vw / 12), calc(100vh / 11));
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.grid > .highlight {
+	color: #84a98c;
+}
