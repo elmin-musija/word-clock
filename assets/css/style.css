@@ -25,9 +25,6 @@ body {
 }
 .grid > p {
 	color: rgba(53, 79, 82, 0.3);
-	font-size: min(4vw, 4vh);
-	width: min(calc(100vw / 12), calc(100vh / 11));
-	height: min(calc(100vw / 12), calc(100vh / 11));
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

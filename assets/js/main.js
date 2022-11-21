@@ -161,6 +161,24 @@ const getOutputArrayFullHours = (paramOffset = 0) => {
 	return [...tmpString.replace(`EINS`, `EIN`).split(` `)];
 };
 
+const fitIntoWindow = (event) => {
+	for (let element of outputGridElement) {
+		if (window.innerWidth > window.innerHeight) {
+			element.style.width = `${Math.floor(window.innerHeight / 12)}px`;
+			element.style.height = `${Math.floor(window.innerHeight / 12)}px`;
+			element.style.fontSize = `${Math.floor(
+				(window.innerHeight / 100.0) * 4
+			)}px`;
+		} else {
+			element.style.width = `${Math.floor(window.innerWidth / 12)}px`;
+			element.style.height = `${Math.floor(window.innerWidth / 12)}px`;
+			element.style.fontSize = `${Math.floor(
+				(window.innerWidth / 100.0) * 4
+			)}px`;
+		}
+	}
+};
+
 const checkTime = () => {
 	let outputTimeArray = [];
 	getCurrentTime();
@@ -191,5 +209,8 @@ const checkTime = () => {
 		}
 	}
 };
+
+window.addEventListener(`load`, fitIntoWindow);
+window.addEventListener(`resize`, fitIntoWindow);
 createGrid();
 setInterval(checkTime, 1000);
