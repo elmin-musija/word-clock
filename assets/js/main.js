@@ -133,7 +133,7 @@ const getTimeStringHours = (paramOffset = 0) => {
 		}
 	}
 };
-const removeHighlight = () => {
+const removeHighlightClass = () => {
 	for (let element of outputGridElement) {
 		element.classList.remove(`highlight`);
 	}
@@ -179,6 +179,20 @@ const fitIntoWindow = (event) => {
 	}
 };
 
+const setHighlightClass = (paramArray) => {
+	paramArray.forEach((element, index) => {
+		let startPosition = 0;
+		if (index === paramArray.length - 1 || currentTime.minutes === 0) {
+			startPosition = fieldArray.lastIndexOf(element);
+		} else if (index !== paramArray.length - 1) {
+			startPosition = fieldArray.indexOf(element);
+		}
+		for (let i = startPosition; i < startPosition + element.length; i++) {
+			outputGridElement[i].classList.add(`highlight`);
+		}
+	});
+};
+
 const checkTime = () => {
 	let outputTimeArray = [];
 	getCurrentTime();
@@ -194,18 +208,8 @@ const checkTime = () => {
 			}
 		}
 		if (outputTimeArray.length > 0) {
-			removeHighlight();
-			outputTimeArray.forEach((element, index) => {
-				let startPosition = 0;
-				if (index === outputTimeArray.length - 1 || currentTime.minutes === 0) {
-					startPosition = fieldArray.lastIndexOf(element);
-				} else if (index !== outputTimeArray.length - 1) {
-					startPosition = fieldArray.indexOf(element);
-				}
-				for (let i = startPosition; i < startPosition + element.length; i++) {
-					outputGridElement[i].classList.add(`highlight`);
-				}
-			});
+			removeHighlightClass();
+			setTimeout(setHighlightClass, 2000, outputTimeArray);
 		}
 	}
 };
