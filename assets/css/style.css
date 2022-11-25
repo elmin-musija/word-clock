@@ -29,6 +29,7 @@ body {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	transition: color 2s;
 }
 .grid > .highlight {
 	color: #84a98c;
